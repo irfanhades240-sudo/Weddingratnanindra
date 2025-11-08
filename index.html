@@ -1,1 +1,77 @@
-<!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Undangan Pernikahan Ratna dan Indra</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Comic Sans MS', sans-serif; background: rgba(1, 79, 26, 0.8); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center; position: relative; } .text { margin-bottom: 1.5rem; padding: 0 1rem; } .text h2 { font-size: 1.4rem; font-weight: 600; } .text p { font-size: 1rem; margin-top: 0.5rem; color: #000; } .btn { background: #fff; color: #000; text-decoration: none; font-weight: 600; padding: 0.8rem 2rem; border-radius: 30px; transition: 0.3s; } .btn:hover { background: #f0c14b; color: #000; } footer { font-size: 0.75rem; margin-top: 2rem; color: #000; } /* Tombol musik */ #musicBtn { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; border-radius: 50%; border: none; background: white; color: black; font-size: 20px; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); transition: 0.3s; } #musicBtn:hover { transform: scale(1.1); background: #f0c14b; } </style> </head> <body> <div class="text"> <h2>Undangan Pernikahan</h2> <p>Untuk <span id="guest-name">Tamu Spesial</span></p> <p>Nama Pengantin: <strong>Ratna & Indra</strong></p> </div> <a href="https://weddingindradanratna.my.canva.site/wedding-of-r-and-i-final" class="btn" target="_blank" rel="noopener"> Buka Undangan </a> <footer> © 2025 Ratna & Indra Wedding </footer> <!-- 🎵 Pemutar Musik --> <audio id="weddingMusic" loop> <source src="musik.mp3" type="audio/mpeg"> </audio> <button id="musicBtn" aria-label="Play or Pause Music">▶️</button> <script> // Nama tamu dari URL parameter ?to= const urlParams = new URLSearchParams(window.location.search); const guestName = urlParams.get('to'); if (guestName) { document.getElementById('guest-name').textContent = decodeURIComponent(guestName); } // Musik play/pause const music = document.getElementById('weddingMusic'); const musicBtn = document.getElementById('musicBtn'); // Mainkan otomatis (jika diizinkan browser) window.addEventListener('load', () => { const playPromise = music.play(); if (playPromise !== undefined) { playPromise .then(() => { musicBtn.textContent = '⏸️'; // sedang main }) .catch(() => { musicBtn.textContent = '▶️'; // butuh interaksi }); } }); // Tombol play/pause manual musicBtn.addEventListener('click', () => { if (music.paused) { music.play(); musicBtn.textContent = '⏸️'; } else { music.pause(); musicBtn.textContent = '▶️'; } }); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan Ratna dan Indra</title>
+  <style>
+   
+    #musicBtn:hover {
+      transform: scale(1.1);
+      background: #f0c14b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="text">
+    <h2>Undangan Pernikahan</h2>
+    <p>Untuk <span id="guest-name">Tamu Spesial</span></p>
+    <p>Nama Pengantin: <strong>Ratna & Indra</strong></p>
+  </div>
+
+  <a href="https://ratnadanindra.my.canva.site/weddingbyhades" class="btn" target="_blank" rel="noopener">
+    Buka Undangan
+  </a>
+
+  <footer>
+    © 2025 Ratna & Indra Wedding
+  </footer>
+
+  <!-- 🎵 Pemutar Musik -->
+  <audio id="weddingMusic" loop>
+    <source src="./musik.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung pemutar musik.
+  </audio>
+
+  <button id="musicBtn" aria-label="Play or Pause Music">▶️</button>
+
+  <script>
+    // Ambil nama tamu dari URL parameter ?to=
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    if (guestName) {
+      document.getElementById('guest-name').textContent = decodeURIComponent(guestName);
+    }
+
+    // Musik play/pause
+    const music = document.getElementById('weddingMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    // Coba mainkan otomatis (jika diizinkan browser)
+    window.addEventListener('load', () => {
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            musicBtn.textContent = '⏸️'; // sedang main
+          })
+          .catch(() => {
+            musicBtn.textContent = '▶️'; // butuh klik manual
+          });
+      }
+    });
+
+    // Tombol play/pause manual
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicBtn.textContent = '⏸️';
+      } else {
+        music.pause();
+        musicBtn.textContent = '▶️';
+      }
+    });
+  </script>
+</body>
+</html>
