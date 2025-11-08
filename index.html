@@ -5,10 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Pernikahan Ratna dan Indra</title>
   <style>
-   
-    #musicBtn:hover {
-      transform: scale(1.1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background: rgba(1, 79, 26, 0.8);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    .text {
+      margin-bottom: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .text h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .text p {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #000;
+    }
+
+    .btn {
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
       background: #f0c14b;
+      color: #000;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      margin-top: 2rem;
+      color: #000;
     }
   </style>
 </head>
@@ -28,13 +78,11 @@
     © 2025 Ratna & Indra Wedding
   </footer>
 
-  <!-- 🎵 Pemutar Musik -->
-  <audio id="weddingMusic" loop>
+  <!-- 🎵 Pemutar Musik (Autoplay dan Loop) -->
+  <audio id="weddingMusic" autoplay loop>
     <source src="./musik.mp3" type="audio/mpeg">
     Browser Anda tidak mendukung pemutar musik.
   </audio>
-
-  <button id="musicBtn" aria-label="Play or Pause Music">▶️</button>
 
   <script>
     // Ambil nama tamu dari URL parameter ?to=
@@ -44,34 +92,20 @@
       document.getElementById('guest-name').textContent = decodeURIComponent(guestName);
     }
 
-    // Musik play/pause
-    const music = document.getElementById('weddingMusic');
-    const musicBtn = document.getElementById('musicBtn');
-
-    // Coba mainkan otomatis (jika diizinkan browser)
+    // Upaya autoplay (beberapa browser memerlukan interaksi pengguna)
     window.addEventListener('load', () => {
+      const music = document.getElementById('weddingMusic');
       const playPromise = music.play();
       if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            musicBtn.textContent = '⏸️'; // sedang main
-          })
-          .catch(() => {
-            musicBtn.textContent = '▶️'; // butuh klik manual
-          });
-      }
-    });
-
-    // Tombol play/pause manual
-    musicBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        musicBtn.textContent = '⏸️';
-      } else {
-        music.pause();
-        musicBtn.textContent = '▶️';
+        playPromise.catch(() => {
+          // Jika gagal autoplay, jalankan setelah klik pertama di mana saja
+          document.body.addEventListener('click', () => {
+            music.play();
+          }, { once: true });
+        });
       }
     });
   </script>
+
 </body>
 </html>
